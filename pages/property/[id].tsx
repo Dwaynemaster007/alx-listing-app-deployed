@@ -2,19 +2,23 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import PropertyDetail from "@/components/property/PropertyDetail";
+import Layout from "@/components/layout/Layout";
+import { PropertyProps } from "@/interfaces";
 
 export default function PropertyDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const [property, setProperty] = useState(null);
+  const [property, setProperty] = useState<PropertyProps | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProperty = async () => {
       if (!id) return;
       try {
-        const response = await axios.get(`/api/properties/${id}`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${id}`
+        );
         setProperty(response.data);
       } catch (error) {
         console.error("Error fetching property details: ", error);
@@ -27,12 +31,28 @@ export default function PropertyDetailPage() {
   }, [id]);
 
   if (loading) {
-    return <p>Loading property...</p>;
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-xl">Loading property...</p>
+        </div>
+      </Layout>
+    );
   }
 
   if (!property) {
-    return <p>Property not found</p>;
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-xl">Property not found</p>
+        </div>
+      </Layout>
+    );
   }
 
-  return <PropertyDetail property={property} />;
+  return (
+    <Layout>
+      <PropertyDetail property={property} />
+    </Layout>
+  );
 }

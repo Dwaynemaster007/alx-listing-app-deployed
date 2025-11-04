@@ -21,6 +21,7 @@ interface Offer {
 }
 
 export interface PropertyProps {
+    id: number | string;  
     name: string,
     address: Address,
     rating: number,
