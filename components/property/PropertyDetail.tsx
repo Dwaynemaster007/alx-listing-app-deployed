@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // components/property/PropertyDetail.tsx
+import { PropertyProps } from "@/interfaces";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { 
@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import ReviewSection from './ReviewSection';
 import Image from 'next/image';
-const PropertyDetail: React.FC = () => {
-  const [property, setProperty] = useState<any>(null);
+
+// FIXED: No props needed — we're fetching inside
+const PropertyDetail = () => {
+  const [property, setProperty] = useState<PropertyProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -122,20 +124,26 @@ const PropertyDetail: React.FC = () => {
               <Home className="h-6 w-6 mr-2 text-blue-600" />
               About this property
             </h2>
-            <p className="text-gray-700 mb-6 leading-relaxed">{property.description}</p>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              {property.description || "Luxurious and modern property with stunning views and premium amenities."}
+            </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div className="flex items-center p-4 bg-gray-50 rounded-lg">
                 <Bed className="h-8 w-8 text-blue-600 mr-3" />
                 <div>
-                  <div className="font-semibold text-gray-800">{property.offers.bed} bed{property.offers.bed !== '1' ? 's' : ''}</div>
+                  <div className="font-semibold text-gray-800">
+                    {property.offers.bed} bed{property.offers.bed !== '1' ? 's' : ''}
+                  </div>
                   <div className="text-sm text-gray-600">Comfortable sleeping</div>
                 </div>
               </div>
               <div className="flex items-center p-4 bg-gray-50 rounded-lg">
                 <ShowerHead className="h-8 w-8 text-green-600 mr-3" />
                 <div>
-                  <div className="font-semibold text-gray-800">{property.offers.shower} shower{property.offers.shower !== '1' ? 's' : ''}</div>
+                  <div className="font-semibold text-gray-800">
+                    {property.offers.shower} shower{property.offers.shower !== '1' ? 's' : ''}
+                  </div>
                   <div className="text-sm text-gray-600">Private bathrooms</div>
                 </div>
               </div>
@@ -174,11 +182,11 @@ const PropertyDetail: React.FC = () => {
           <div className="bg-white rounded-xl shadow-lg p-6 sticky top-6 border border-gray-200">
             <div className="mb-6">
               <div className="flex items-baseline gap-2 mb-3">
-                {property.discount && (
+                {property.discount ? (
                   <span className="text-2xl text-red-600 font-bold">
                     ${discountedPrice.toFixed(2)}
                   </span>
-                )}
+                ) : null}
                 <span className={`text-2xl font-bold ${property.discount ? 'text-gray-400 line-through' : 'text-gray-800'}`}>
                   ${property.price}
                 </span>
@@ -191,15 +199,17 @@ const PropertyDetail: React.FC = () => {
               )}
             </div>
 
-            <button onClick={() => router.push(`/booking?id=${id}`)}
-            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 font-semibold mb-4 flex items-center justify-center">
+            <button
+              onClick={() => router.push(`/booking?id=${id}`)}
+              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 font-semibold mb-4 flex items-center justify-center"
+            >
               <Calendar className="h-5 w-5 mr-2" />
               Book Now
             </button>
           </div>
         </div>
       </div>
-      <ReviewSection propertyId= {property.id}/>
+      <ReviewSection propertyId={property.id!} />
     </div>
   );
 };

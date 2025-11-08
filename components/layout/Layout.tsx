@@ -2,8 +2,16 @@
 import React from 'react';
 import Link from "next/link";
 
+type SearchData = {
+  location: string;
+  checkIn: string;
+  checkOut: string;
+  guests: number;
+};
+
 interface LayoutProps {
   children: React.ReactNode;
+  onSearch: (data: SearchData) => void;  // ← THIS IS THE MISSING PROP
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

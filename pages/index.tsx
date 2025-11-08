@@ -28,9 +28,14 @@ export default function Home() {
     fetchProperties();
   }, []);
 
+  // Dummy onSearch – you can use the real one later
+  const handleSearch = () => {
+    // Placeholder – will be used when you add search bar
+  };
+
   if (loading) {
     return (
-      <Layout>
+      <Layout onSearch={handleSearch}>
         <div className="flex justify-center items-center h-screen">
           <p className="text-xl">Loading properties...</p>
         </div>
@@ -39,7 +44,7 @@ export default function Home() {
   }
 
   return (
-    <Layout>
+    <Layout onSearch={handleSearch}>
       <div className="max-w-screen-xl mx-auto p-4 md:p-6">
         <h1 className="text-3xl font-bold text-gray-900">Featured Properties</h1>
         <div className="flex gap-3 mt-6 flex-wrap">

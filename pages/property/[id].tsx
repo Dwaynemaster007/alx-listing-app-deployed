@@ -30,9 +30,14 @@ export default function PropertyDetailPage() {
     fetchProperty();
   }, [id]);
 
+  // Dummy handler — matches the one in _app.tsx
+  const handleSearch = () => {
+    // Search logic will come later
+  };
+
   if (loading) {
     return (
-      <Layout>
+      <Layout onSearch={handleSearch}>
         <div className="flex justify-center items-center h-screen">
           <p className="text-xl">Loading property...</p>
         </div>
@@ -42,7 +47,7 @@ export default function PropertyDetailPage() {
 
   if (!property) {
     return (
-      <Layout>
+      <Layout onSearch={handleSearch}>
         <div className="flex justify-center items-center h-screen">
           <p className="text-xl">Property not found</p>
         </div>
@@ -51,8 +56,8 @@ export default function PropertyDetailPage() {
   }
 
   return (
-    <Layout>
-      <PropertyDetail property={property} />
+    <Layout onSearch={handleSearch}>
+      <PropertyDetail />
     </Layout>
   );
 }

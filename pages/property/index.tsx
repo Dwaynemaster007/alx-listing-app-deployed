@@ -5,7 +5,7 @@ function Property() {
   return (
     <div>
       <BookingSection price={0} />
-      <ReviewSection propertyId={0} />
+      <ReviewSection propertyId="0" />
     </div>
   );
 }

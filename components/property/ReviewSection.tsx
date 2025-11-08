@@ -120,7 +120,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ propertyId }) => {
         </h2>
         {reviews.length > 0 && (
           <div className="flex items-center space-x-2">
-            <div className="flex items-center">
+          <div className="flex items-center">
               <Star className="h-5 w-5 text-yellow-500 fill-current mr-1" />
               <span className="font-semibold text-lg">{averageRating}</span>
             </div>
@@ -166,9 +166,9 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ propertyId }) => {
                 <div className="text-sm text-gray-500">{review.date}</div>
               </div>
               <p className="text-gray-700 leading-relaxed">{review.comment}</p>
-            </div>
-          ))}
         </div>
+      ))}
+    </div>
       )}
     </div>
   );
