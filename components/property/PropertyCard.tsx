@@ -24,7 +24,7 @@ const PropertyCard: React.FC<{ property: PropertyProps | undefined }> = ({ prope
           <div className="text-center p-6">
             <Link 
             href={`/property/${property.id}`}
-            className="bg-zinc-500 text-white px-4 py-2 rounded-lg hover:bg-zink-800 transition-colors duration-200 font-semibold p-3 m-6"
+            className="bg-zinc-500 text-white px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors duration-200 font-semibold p-3 m-6"
           >
             View Details
           </Link>

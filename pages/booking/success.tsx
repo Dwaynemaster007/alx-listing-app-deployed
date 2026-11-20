@@ -26,11 +26,11 @@ const BookingSuccessPage: React.FC = () => {
           </button>
           
           <button
-            onClick={() => router.push('/booking')}
+            onClick={() => router.push('/')}
             className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 font-semibold flex items-center justify-center"
           >
             <Calendar className="h-5 w-5 mr-2" />
-            View My Bookings
+            Book another stay
           </button>
         </div>
       </div>

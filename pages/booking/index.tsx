@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // pages/booking/index.tsx
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import BookingForm from '@/components/booking/BookingForm';
@@ -14,7 +15,11 @@ const BookingPage: React.FC = () => {
 
   useEffect(() => {
     const fetchProperty = async () => {
-      if (!id) return;
+      if (!router.isReady) return;
+      if (!id) {
+        setLoading(false);
+        return;
+      }
 
       try {
         const response = await fetch(`/api/properties/${id}`);
@@ -31,7 +36,7 @@ const BookingPage: React.FC = () => {
     };
 
     fetchProperty();
-  }, [id]);
+  }, [id, router.isReady]);
 
   const handleBookingSuccess = (booking: any) => {
     console.log('Booking successful:', booking);
@@ -50,7 +55,12 @@ const BookingPage: React.FC = () => {
   if (!property) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-lg text-red-600">Property not found</div>
+        <div className="text-center">
+          <p className="text-lg text-red-600">Choose a property before booking.</p>
+          <Link href="/" className="inline-block mt-4 text-blue-600 underline">
+            Browse properties
+          </Link>
+        </div>
       </div>
     );
   }
